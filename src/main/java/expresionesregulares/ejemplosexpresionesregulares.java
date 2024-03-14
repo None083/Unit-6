@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 public class ejemplosexpresionesregulares {
 
     public static void main(String[] args) {
-        //Todos los archivos quwe están en la raiz del proyecto 
+        //Todos los archivos que están en la raiz del proyecto 
         //son accsibles directamente con su nombre
         List<String> lineasFichero;
         String fichero = "ssh_config";
