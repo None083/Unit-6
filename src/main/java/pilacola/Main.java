@@ -12,6 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
         
+        //Pila
         Pila<Integer> pila = new Pila<>(5);
         
         pila.anyadirElemento(1);
@@ -33,6 +34,7 @@ public class Main {
         
         System.out.println("Pila vacía: " + pila.estaVacia());
         
+        //Cola
         Cola<String> cola = new Cola<>(5);
 
         cola.anyadirElemento("Elemento 1");
