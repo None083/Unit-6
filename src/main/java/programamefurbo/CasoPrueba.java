@@ -4,6 +4,11 @@
  */
 package programamefurbo;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -31,7 +36,7 @@ public class CasoPrueba {
                 this.plazasCONCACAF = plazasCONCACAF;
                 this.plazasCONMEBOL = plazasCONMEBOL;
                 this.plazasOFC = plazasOFC;
-            }else{
+            } else {
                 throw new IllegalArgumentException("La suma de las plazas no debe superar la del numero de equipos permitido");
             }
 
@@ -44,56 +49,28 @@ public class CasoPrueba {
         return numEquipos;
     }
 
-    public void setNumEquipos(int numEquipos) {
-        this.numEquipos = numEquipos;
-    }
-
     public int getPlazasUEFA() {
         return plazasUEFA;
-    }
-
-    public void setPlazasUEFA(int plazasUEFA) {
-        this.plazasUEFA = plazasUEFA;
     }
 
     public int getPlazasAFC() {
         return plazasAFC;
     }
 
-    public void setPlazasAFC(int plazasAFC) {
-        this.plazasAFC = plazasAFC;
-    }
-
     public int getPlazasCAF() {
         return plazasCAF;
-    }
-
-    public void setPlazasCAF(int plazasCAF) {
-        this.plazasCAF = plazasCAF;
     }
 
     public int getPlazasCONCACAF() {
         return plazasCONCACAF;
     }
 
-    public void setPlazasCONCACAF(int plazasCONCACAF) {
-        this.plazasCONCACAF = plazasCONCACAF;
-    }
-
     public int getPlazasCONMEBOL() {
         return plazasCONMEBOL;
     }
 
-    public void setPlazasCONMEBOL(int plazasCONMEBOL) {
-        this.plazasCONMEBOL = plazasCONMEBOL;
-    }
-
     public int getPlazasOFC() {
         return plazasOFC;
-    }
-
-    public void setPlazasOFC(int plazasOFC) {
-        this.plazasOFC = plazasOFC;
     }
 
     @Override
@@ -110,16 +87,54 @@ public class CasoPrueba {
         sb.append('}');
         return sb.toString();
     }
-    
-    public static void pedirCasos(){
+
+    public static List<CasoPrueba> pedirCasos() {
+        List<CasoPrueba> lista = new ArrayList<>();
         Scanner teclado = new Scanner(System.in);
+        
         System.out.println("Introduce un numero de casos");
         int numCasos = teclado.nextInt();
+        
         for (int i = 0; i < numCasos; i++) {
-            
+            System.out.println("Introduce el numero máximo de equipos");
+            int numEquipos = teclado.nextInt();
+            System.out.println("Introduce el numero de plazas para la UEFA");
+            int plazasUEFA = teclado.nextInt();
+            System.out.println("Introduce el numero de plazas para la AFC");
+            int plazasAFC = teclado.nextInt();
+            System.out.println("Introduce el numero de plazas para la CAF");
+            int plazasCAF = teclado.nextInt();
+            System.out.println("Introduce el numero de plazas para la CONCACAF");
+            int plazasCONCACAF = teclado.nextInt();
+            System.out.println("Introduce el numero de plazas para la CONMEBOL");
+            int plazasCONMEBOL = teclado.nextInt();
+            System.out.println("Introduce el numero de plazas para la OFC");
+            int plazasOFC = teclado.nextInt();
+            lista.add(new CasoPrueba(numEquipos, plazasUEFA, plazasAFC, plazasCAF, plazasCONCACAF, plazasCONMEBOL, plazasOFC));
         }
+        return lista;
     }
     
+    public static List<Integer> gruposRepesca(List<CasoPrueba> listaCasos){
+        List<Integer> listaRepesca = new ArrayList<>();
+        int totalGrupos = 0;
+        for (CasoPrueba c : listaCasos) {
+            totalGrupos = c.getPlazasAFC() + c.getPlazasCAF() + c.getPlazasCONCACAF() 
+                    + c.getPlazasCONMEBOL() + c.getPlazasOFC() + c.getPlazasUEFA();
+            listaRepesca.add(totalGrupos);
+        }
+        return listaRepesca;
+    }
     
+    public static void guardarResultados(List<Integer> listaRepesca) {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter("resultados.txt"))) {
+        for (Integer i : listaRepesca) {
+            writer.write(i.toString());
+            writer.newLine();
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
 
 }
