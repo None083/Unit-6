@@ -5,6 +5,11 @@
 package tarea7c;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -78,6 +83,29 @@ public class Persona {
         sb.append(", ciudad=").append(ciudad);
         sb.append('}');
         return sb.toString();
+    }
+    
+    public static Set<String> tiposGenero(List<Persona> listaPersonas) {
+        Set<String> setGeneros = new HashSet<>();
+        
+        for (Persona p : listaPersonas) {
+            setGeneros.add(p.getGenero());
+        }
+        return setGeneros;
+    }
+    
+    public static Map<String, Integer> numPersonasGenero(List<Persona> listaPersonas) {
+        Map<String, Integer> mapPersonasGenero = new HashMap<>();
+        
+        for (Persona p : listaPersonas) {
+            
+            if (mapPersonasGenero.containsKey(p.getGenero())) {
+                mapPersonasGenero.put(p.getGenero(), mapPersonasGenero.get(p.getGenero()) + 1);
+            }else{
+                mapPersonasGenero.put(p.getGenero(), 1);
+            }
+        }
+        return mapPersonasGenero;
     }
     
 }
