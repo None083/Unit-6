@@ -75,6 +75,10 @@ public class MetodosStream {
     }
 
     public static String nombresConcatenados(List<Persona> listaPersonas) {
+//        listaPersonas.stream()
+//                .map(p->p.getNombre())
+//                .reduce(" ", (a, b) -> a.concat(b));
+        
         return listaPersonas.stream()
                 .map(p->p.getNombre())
                 .collect(Collectors.joining(", "));
